@@ -1,10 +1,12 @@
 pipeline{
     agent any
     stages{
-        stage("git checkout"){
+        stage('cleanup workspace'){
            steps {
-                git branch
-           } 
+            script {
+                cleanWs()
+            }
+           }
         }
     }
 }
