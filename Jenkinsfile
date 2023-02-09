@@ -13,15 +13,15 @@ pipeline{
     stages{
         stage('cleanup workspace'){
            steps {
-            script {
+            // script {
                 cleanWs()
-            }
+            // }
            }
         }
-        stage("creating file"){
-            steps{
-                sh "touch bye.txt"
-            }
-        }
+        // stage("creating file"){
+        //     steps{
+        //         sh "touch bye.txt"
+        //     }
+        // }
     }
 }
