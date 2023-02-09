@@ -18,5 +18,10 @@ pipeline{
             }
            }
         }
+        stage("creating file"){
+            steps{
+                sh "touch bye.txt"
+            }
+        }
     }
 }
