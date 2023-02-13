@@ -26,7 +26,7 @@ pipeline{
         stage("Build Docker Images"){
             steps{
                 script{
-                    sh "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
+                    sh "docker build -t ${IMAGE_NAME}:1.${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline{
         stage("Push Docker Images to Docker Registery"){
             steps{
                 script{
-                    sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
+                    sh "docker push ${IMAGE_NAME}:1.${BUILD_NUMBER}"
                     sh "docker push ${IMAGE_NAME}:latest"
                 }
             }
