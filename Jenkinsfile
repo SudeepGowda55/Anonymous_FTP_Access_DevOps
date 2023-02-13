@@ -34,10 +34,11 @@ pipeline{
         stage("Push Docker Images to Docker Registery"){
             steps{
                 script{
-                    sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
+                    sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
+                    sh "docker push ${IMAGE_NAME}:latest"
                 }
             }
         }
     }
-    
+
 }
