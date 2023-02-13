@@ -18,7 +18,7 @@ pipeline{
         }
         stage("git checkout"){
             steps{
-                git branch: "master" url: 'https://github.com/SudeepGowda55/python_devops.git'
+                git branch: "master", url: 'https://github.com/SudeepGowda55/python_devops.git'
             //    for private repository 
             //    git credentialsId: "<id>" branch: "master" url: 'https://github.com/SudeepGowda55/python_devops.git'
             }
