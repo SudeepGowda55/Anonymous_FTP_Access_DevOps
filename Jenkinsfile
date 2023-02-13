@@ -25,14 +25,18 @@ pipeline{
         }
         stage("Build Docker Images"){
             steps{
-                docker_image = docker.build "${IMAGE_NAME}"
+                script{
+                    docker_image = docker.build "${IMAGE_NAME}"
+                }
             }
         }
         stage("Push Docker Images to Docker Registery"){
             steps{
-                docker.withRegistery("", DOCKERHUB_CRED_ID){
+                script{
+                    docker.withRegistery("", DOCKERHUB_CRED_ID){
                     docker_image.push("$BUILD_NUMBER")
                     docker_image.push("latest")
+                }
                 }
             }
         }
