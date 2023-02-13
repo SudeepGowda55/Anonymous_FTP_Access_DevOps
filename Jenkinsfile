@@ -35,7 +35,6 @@ pipeline{
             steps{
                 script{
                     sh "docker push ${IMAGE_NAME}:1.${BUILD_NUMBER}"
-                    sh "docker push ${IMAGE_NAME}:latest"
                 }
             }
         }
