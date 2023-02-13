@@ -4,10 +4,10 @@ pipeline{
 
     environment{
         DOCKERHUB_USERNAME = "sudeepgowda55"
-        APP_NAME = "python_devops"
+        APP_NAME = "anonymous_ftp_access"
         IMAGE_TAGNAME = "${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}"+ "/" + "${APP_NAME}" 
-        DOCKERHUB_CRED = "dockerhub"
+        DOCKERHUB_CRED_ID = "dockerhub"
     }
 
     stages{
@@ -26,6 +26,14 @@ pipeline{
         stage("Build Docker Images"){
             steps{
                 docker_image = docker.build "${IMAGE_NAME}"
+            }
+        }
+        stage("Push Docker Images to Docker Registery"){
+            steps{
+                docker.withRegistery("", DOCKERHUB_CRED_ID){
+                    docker_image.push("$BUILD_NUMBER")
+                    docker_image.push("latest")
+                }
             }
         }
     }
