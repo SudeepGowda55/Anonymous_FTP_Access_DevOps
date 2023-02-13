@@ -26,19 +26,20 @@ pipeline{
         stage("Build Docker Images"){
             steps{
                 script{
-                    docker_image = docker.build "${IMAGE_NAME}"
+                    // docker_image = docker.build "${IMAGE_NAME}"
+                    sh "docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
-        stage("Push Docker Images to Docker Registery"){
-            steps{
-                script{
-                    docker.withRegistery('', DOCKERHUB_CRED_ID){
-                    docker_image.push("$BUILD_NUMBER")
-                    docker_image.push("latest")
-                }
-                }
-            }
-        }
+        // stage("Push Docker Images to Docker Registery"){
+        //     steps{
+        //         script{
+        //             docker.withRegistery('', DOCKERHUB_CRED_ID){
+        //             docker_image.push("$BUILD_NUMBER")
+        //             docker_image.push("latest")
+        //         }
+        //         }
+        //     }
+        // }
     }
 }
