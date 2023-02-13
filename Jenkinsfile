@@ -3,9 +3,7 @@ pipeline{
     agent any
 
     environment{
-        DOCKERHUB_USERNAME = "sudeepgowda55"
-        APP_NAME = "anonymous_ftp_access"
-        IMAGE_NAME = "${DOCKERHUB_USERNAME}"+ "/" + "${APP_NAME}" 
+        IMAGE_NAME = "sudeepgowda55"+ "/" + "anonymous_ftp_access" 
     }
 
     stages{
@@ -33,9 +31,12 @@ pipeline{
 
         stage("Push Docker Images to Docker Registery"){
             steps{
-                withDockerRegistry([ credentialsId: "dockerhub", url: "https://index.docker.io/v1/" ]) {
-                    sh "docker push ${IMAGE_NAME}"
-                }     
+                script{              
+                    withDockerRegistry([ credentialsId: "dockerhub", url: "https://index.docker.io/v1/" ]) {
+                        sh "docker push ${IMAGE_NAME}:1.${BUILD_NUMBER}"
+                        sh "docker push ${IMAGE_NAME}:latest"
+                    }   
+                }  
             }
         }
     }
