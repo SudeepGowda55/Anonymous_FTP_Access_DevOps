@@ -14,16 +14,15 @@
 # # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 # CMD ["python", "main.py"]
 
-# Multi Staged Dockerfile
-FROM rust:latest as builder
+FROM rust:latest 
 
 WORKDIR /app
 COPY . .
 
 RUN cargo build --release
 
-FROM debian:buster-slim
+# FROM debian:buster-slim
 
-COPY --from=builder ./target/release/guessing_game ./guessing_game
+# COPY --from=builder ./target/release/guessing_game ./guessing_game
 
-CMD [ "./guessing_game" ]
+CMD [ "./target/release/guessing_game" ]
