@@ -15,7 +15,7 @@
 # CMD ["python", "main.py"]
 
 # Multi Staged Dockerfile
-FROM rust:latest
+FROM rust:latest as builder
 
 WORKDIR /app
 COPY . .
@@ -24,6 +24,6 @@ RUN cargo build --release
 
 FROM debian:buster-slim
 
-COPY --from=builder ./target/release/guessing_game ./target/release/guessing_game
+COPY --from=builder ./target/release/guessing_game ./guessing_game
 
-CMD [ "./target/release/docker" ]
+CMD [ "./guessing_game" ]
