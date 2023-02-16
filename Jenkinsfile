@@ -39,6 +39,13 @@ pipeline{
                 }  
             }
         }
-    }
 
+        stage("Cleanup Workspace and docker images"){
+            script{
+                cleanWs()
+                sh "docker rmi ${IMAGE_NAME}:1.${BUILD_NUMBER}"
+                sh "docker rmi ${IMAGE_NAME}:latest"
+            }
+        }
+    }
 }
