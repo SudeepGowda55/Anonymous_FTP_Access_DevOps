@@ -22,12 +22,14 @@ pipeline{
         }
 
         stage('SonarQube analysis') {
-            steps{
-                withSonarQubeEnv('SonarQube-main-server') { 
-                // If you have configured more than one global server connection, you can specify its name
-//      sh "${scannerHome}/bin/sonar-scanner"
-                   println "${env.SONAR_HOST_URL}"
-                }
+            // steps{
+            //     withSonarQubeEnv('SonarQube-main-server') { 
+            //        println "${env.SONAR_HOST_URL}"
+            //     }
+            // }
+            def scannerHome = tool 'SonarQube-main-server';
+                withSonarQubeEnv() {
+                sh "${scannerHome}/bin/sonar-scanner"
             }
         }
 
