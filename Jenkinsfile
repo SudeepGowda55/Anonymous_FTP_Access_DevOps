@@ -23,7 +23,7 @@ pipeline{
 
         stage('SonarQube analysis') {
             steps{
-                withSonarQubeEnv('sonarqube-8.9') { 
+                withSonarQubeEnv('sonarqube-9.9.0.65466') { 
                 // If you have configured more than one global server connection, you can specify its name
 //      sh "${scannerHome}/bin/sonar-scanner"
                    println "${env.SONAR_HOST_URL}"
