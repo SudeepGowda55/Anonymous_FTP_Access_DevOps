@@ -21,31 +21,41 @@ pipeline{
             }
         }
 
-        stage("Build Docker Images"){
+        stage('SonarQube analysis') {
             steps{
-                script{
-                    sh "docker build -t ${IMAGE_NAME}:1.${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
+                withSonarQubeEnv('sonarqube-8.9') { 
+                // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+                   println ${env.SONAR_HOST_URL} 
                 }
             }
         }
 
-        stage("Push Docker Images to Docker Registery"){
-            steps{
-                script{              
-                    withDockerRegistry([ credentialsId: "dockerhub", url: "https://index.docker.io/v1/" ]) {
-                        sh "docker push ${IMAGE_NAME}:1.${BUILD_NUMBER}"
-                        sh "docker push ${IMAGE_NAME}:latest"
-                    }   
-                }  
-            }
-        }
+        // stage("Build Docker Images"){
+        //     steps{
+        //         script{
+        //             sh "docker build -t ${IMAGE_NAME}:1.${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
+        //         }
+        //     }
+        // }
 
-        stage("Cleanup Workspace and docker images"){
-            script{
-                cleanWs()
-                sh "docker rmi ${IMAGE_NAME}:1.${BUILD_NUMBER}"
-                sh "docker rmi ${IMAGE_NAME}:latest"
-            }
-        }
+        // stage("Push Docker Images to Docker Registery"){
+        //     steps{
+        //         script{              
+        //             withDockerRegistry([ credentialsId: "dockerhub", url: "https://index.docker.io/v1/" ]) {
+        //                 sh "docker push ${IMAGE_NAME}:1.${BUILD_NUMBER}"
+        //                 sh "docker push ${IMAGE_NAME}:latest"
+        //             }   
+        //         }  
+        //     }
+        // }
+
+        // stage("Cleanup Workspace and docker images"){
+        //     script{
+        //         cleanWs()
+        //         sh "docker rmi ${IMAGE_NAME}:1.${BUILD_NUMBER}"
+        //         sh "docker rmi ${IMAGE_NAME}:latest"
+        //     }
+        // }
     }
 }
